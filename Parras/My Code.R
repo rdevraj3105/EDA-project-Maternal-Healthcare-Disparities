@@ -40,7 +40,7 @@ ggplot(aes(x = TobaccoUse, fill = PrePregnancyHypertension)) +
   geom_bar() +
   labs(x = "Tobacco Use",
        y = "Proportion",
-       fill = "Pre-pregnancy Hypertension")
+       fill="Pre-Pregnancy Hypertension")
 
 
 
