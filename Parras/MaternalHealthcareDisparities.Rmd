@@ -47,6 +47,8 @@ cor(age_visits_relation$AverageMotherAge,
 Is there a relationship between tobacco use and pre-pregnancy conditions like diabetes and hypertension?
 
 ```{r}
+##Question 2:
+Is there a relationship between tobacco use and pre-pregnancy conditions like diabetes and hypertension?
 
 ```
 
