@@ -1,6 +1,26 @@
 library(tidyverse)
 maternal <- read_csv("https://raw.githubusercontent.com/36-SURE/36-SURE.github.io/main/data/maternal.csv")
 
-# maternal tobacco use is associated with lower average birth weights 
+# maternal age is associated with prenatal visits. Higher maternal age with result in more prenatal visits.  
 
-tobacco_data <- maternal %>% select() 
+age_visits_relation <- maternal %>% select(AverageMotherAge, AverageNumberPrenatalVisits)
+
+age_visits_relation %>%  
+  ggplot(aes(x=AverageMotherAge, y=AverageNumberPrenatalVisits)) +
+  geom_point(color="lightpink",size=3,alpha=0.5) +
+  theme_minimal() 
+
+cor(age_visits_relation$AverageMotherAge, 
+    age_visits_relation$AverageNumberPrenatalVisits, 
+    use = "complete.obs")
+# correlation coefficient suggests a weak yet positive relationship 
+
+age_visits_relation %>% 
+  ggplot(aes(x = AverageMotherAge, y = AverageNumberPrenatalVisits)) +
+  geom_point(color = "lightpink", size = 3, alpha = 0.5) +
+  geom_smooth(method = "lm", linewidth = 2, color="hotpink")
+
+
+
+
+
