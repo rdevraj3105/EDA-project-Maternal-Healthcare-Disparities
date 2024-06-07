@@ -35,9 +35,16 @@ age_visits_relation %>%
   geom_point(color = "lightpink", size = 3, alpha = 0.5) +
   geom_smooth(method = "lm", linewidth = 2, color="hotpink")
 ```
+The graphs show that there seems to be some postive relationship between the Average Mother Age and Average Prenatal Visits. More convincing proof would be to check the correlation coefficient. 
 
+```{r}
+cor(age_visits_relation$AverageMotherAge, 
+    age_visits_relation$AverageNumberPrenatalVisits, 
+    use = "complete.obs")
+```
 
-
+## Question 2: 
+Is there a relationship between tobacco use and pre-pregnancy conditions like diabetes and hypertension?
 
 ```{r}
 
