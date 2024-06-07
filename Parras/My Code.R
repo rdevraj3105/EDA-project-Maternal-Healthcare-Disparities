@@ -10,15 +10,43 @@ age_visits_relation %>%
   geom_point(color="lightpink",size=3,alpha=0.5) +
   theme_minimal() 
 
+age_visits_relation %>% 
+  ggplot(aes(x = AverageMotherAge, y = AverageNumberPrenatalVisits)) +
+  geom_point(color = "lightpink", size = 3, alpha = 0.5) +
+  geom_smooth(method = "lm", linewidth = 2, color="hotpink")
+
 cor(age_visits_relation$AverageMotherAge, 
     age_visits_relation$AverageNumberPrenatalVisits, 
     use = "complete.obs")
 # correlation coefficient suggests a weak yet positive relationship 
 
-age_visits_relation %>% 
-  ggplot(aes(x = AverageMotherAge, y = AverageNumberPrenatalVisits)) +
-  geom_point(color = "lightpink", size = 3, alpha = 0.5) +
-  geom_smooth(method = "lm", linewidth = 2, color="hotpink")
+
+library(ggplot2)
+library(dplyr)
+
+
+# Bar plot for pre-pregnancy diabetes
+maternal %>% 
+  ggplot(aes(x = TobaccoUse, fill = PrePregnancyDiabetes)) +
+  geom_bar() +
+  labs(x = "Tobacco Use",
+       y = "Proportion",
+       fill = "Pre-pregnancy Diabetes")
+
+# Bar plot for pre-pregnancy hypertension
+maternal %>% 
+ggplot(aes(x = TobaccoUse, fill = PrePregnancyHypertension)) +
+  geom_bar() +
+  labs(x = "Tobacco Use",
+       y = "Proportion",
+       fill="Pre-Pregnancy Hypertension")
+
+
+
+
+
+
+
 
 
 
