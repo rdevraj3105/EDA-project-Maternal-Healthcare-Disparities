@@ -1,0 +1,54 @@
+---
+title: "EDA Maternal Healthcare Disparities"
+output: html_document
+date: "2024-06-07"
+---
+
+```{r setup, include=FALSE}
+
+```
+
+## Overview of the Dataset 
+The dataset that we were given was maternal healthcare disparities. It is
+a sample of data from the CDC database for birth records from 2019. It includes details such as the number of prior births now deceased, maternal tobacco use, and whether the mother had pre-pregnancy diabetes or hypertension. This dataset provides statistics for births, including the average age of the mother, average birth weight, average pre-pregnancy BMI, average number of prenatal visits, and the average interval since the last birth. This data allows for analysis of maternal and infant health trends across different states. It offers us valuable insights into the impacts of these factors on birth outcomes.
+
+
+```{r}
+library(tidyverse)
+maternal <- read_csv("https://raw.githubusercontent.com/36-SURE/36-SURE.github.io/main/data/maternal.csv")
+
+```
+
+## Question 1: 
+Is higher maternal age associated with higher prenatal visits? To look at the relationship between these two variables, we can use a scatterplot. 
+
+```{r}
+age_visits_relation <- maternal %>% select(AverageMotherAge, AverageNumberPrenatalVisits)
+
+age_visits_relation %>%  
+  ggplot(aes(x=AverageMotherAge, y=AverageNumberPrenatalVisits)) +
+  geom_point(color="lightpink",size=3,alpha=0.5) +
+  theme_minimal() 
+# adding a linear regression line 
+age_visits_relation %>% 
+  ggplot(aes(x = AverageMotherAge, y = AverageNumberPrenatalVisits)) +
+  geom_point(color = "lightpink", size = 3, alpha = 0.5) +
+  geom_smooth(method = "lm", linewidth = 2, color="hotpink")
+```
+The graphs show that there seems to be some postive relationship between the Average Mother Age and Average Prenatal Visits. More convincing proof would be to check the correlation coefficient. 
+
+```{r}
+cor(age_visits_relation$AverageMotherAge, 
+    age_visits_relation$AverageNumberPrenatalVisits, 
+    use = "complete.obs")
+```
+
+## Question 2: 
+Is there a relationship between tobacco use and pre-pregnancy conditions like diabetes and hypertension?
+
+```{r}
+##Question 2:
+Is there a relationship between tobacco use and pre-pregnancy conditions like diabetes and hypertension?
+
+```
+
