@@ -20,10 +20,26 @@ maternal <- read_csv("https://raw.githubusercontent.com/36-SURE/36-SURE.github.i
 ```
 
 ## Question 1: 
-Is higher maternal age associated with higher prenatal visits? 
+Is higher maternal age associated with higher prenatal visits? To look at the relationship between these two variables, we can use a scatterplot. 
+
+```{r}
+age_visits_relation <- maternal %>% select(AverageMotherAge, AverageNumberPrenatalVisits)
+
+age_visits_relation %>%  
+  ggplot(aes(x=AverageMotherAge, y=AverageNumberPrenatalVisits)) +
+  geom_point(color="lightpink",size=3,alpha=0.5) +
+  theme_minimal() 
+# adding a linear regression line 
+age_visits_relation %>% 
+  ggplot(aes(x = AverageMotherAge, y = AverageNumberPrenatalVisits)) +
+  geom_point(color = "lightpink", size = 3, alpha = 0.5) +
+  geom_smooth(method = "lm", linewidth = 2, color="hotpink")
+```
+
+
+
 
 ```{r}
 
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
