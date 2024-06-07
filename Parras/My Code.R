@@ -24,7 +24,6 @@ cor(age_visits_relation$AverageMotherAge,
 library(ggplot2)
 library(dplyr)
 
-# Assuming your data is in a dataframe called df
 
 # Bar plot for pre-pregnancy diabetes
 maternal %>% 
