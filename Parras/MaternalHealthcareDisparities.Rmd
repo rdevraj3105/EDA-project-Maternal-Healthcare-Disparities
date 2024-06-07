@@ -23,6 +23,8 @@ maternal <- read_csv("https://raw.githubusercontent.com/36-SURE/36-SURE.github.i
 Is higher maternal age associated with higher prenatal visits? 
 
 ```{r}
+##Question 2:
+Is there a relationship between tobacco use and pre-pregnancy conditions like diabetes and hypertension?
 
 ```
 
