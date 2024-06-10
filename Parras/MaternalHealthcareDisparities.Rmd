@@ -44,11 +44,9 @@ cor(age_visits_relation$AverageMotherAge,
 ```
 
 ## Question 2: 
-Is there a relationship between tobacco use and pre-pregnancy conditions like diabetes and hypertension?
+Is there an effect of tobacco use and pre-existing diabetes in the average birth weight of a newborn?
 
 ```{r}
-##Question 2:
-Is there a relationship between tobacco use and pre-pregnancy conditions like diabetes and hypertension?
-
+Code for question two:
 ```
 
