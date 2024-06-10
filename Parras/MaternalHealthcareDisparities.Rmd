@@ -52,7 +52,7 @@ init_kmeans <- clean_data %>%
   kmeans(centers = 5, nstart = 1, algorithm = "Lloyd")
 
 clean_data <- clean_data %>%
-  mutate(clusters = as.factor(init_kmeans$cluster))
+  mutate(clusters = as.factor(init_kmeans$cluster)) #yo
 
 clean_data %>%
   ggplot(aes(x = AverageMotherAge, y = AverageNumberPrenatalVisits, color = clusters)) +
