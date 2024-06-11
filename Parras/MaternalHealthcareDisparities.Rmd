@@ -51,23 +51,26 @@ cor(maternal$AverageMotherAge,
     use = "complete.obs")
 ```
 
-Now looking at the same data but with clustering with kmeans to see any other significant findings.
+Now looking at the same data but with clustering with kmeans to see any other significant findings. clustering by tobacco use. 
 
 ```{r}
 clean_data <- maternal %>%  
-  select(AverageMotherAge, AverageNumberPrenatalVisits) %>%
+  select(AverageMotherAge, AverageNumberPrenatalVisits, TobaccoUse) %>%
   na.omit()
 
+clean_data <- clean_data %>%
+  mutate(TobaccoUse = as.numeric(as.factor(TobaccoUse)))
+
 init_kmeans <- clean_data %>%  
-  kmeans(centers = 5, nstart = 1, algorithm = "Lloyd")
+  kmeans(centers = 3, nstart = 1, algorithm = "Lloyd")
 
 clean_data <- clean_data %>%
-  mutate(clusters = as.factor(init_kmeans$cluster)) #yo
+  mutate(clusters = as.factor(init_kmeans$cluster)) 
 
 clean_data %>%
   ggplot(aes(x = AverageMotherAge, y = AverageNumberPrenatalVisits, color = clusters)) +
-  geom_point() + 
-  labs(title = "Clustering" ,
+  geom_point() +
+  labs(title = "Clustering by Tobacco Use",
        x = "Average Mother Age",
        y = "Average Number of Prenatal Visits") +
   coord_fixed()
