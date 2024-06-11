@@ -151,11 +151,25 @@ hypertension <- hypertension_equals |>
     y = "Births",
     fill = "Diabetes"
   )
-hypertension
-
-grid.arrange(tobacco_equals, hypertension, diabetes, nrow=3)
+hypertension 
 
 
 
+View(maternal)
+maternal |> 
+  count(TobaccoUse)
 
 
+
+install.packages("gtsummary")
+library(gtsummary)
+maternal |> 
+  select(TobaccoUse,State,Births) |> 
+  filter(State%in%c("California","Texas","New York","Missouri")) |> 
+  group_by(TobaccoUse, State) |> 
+  summarize(Births=sum(Births, na.rm=TRUE)) |> 
+  ungroup() |> mutate(TobaccoUse = factor(TobaccoUse), State =factor(State)) |> 
+  tbl_summary(include = c('Births'), by = State)
+  
+  
+  
