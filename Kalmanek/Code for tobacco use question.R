@@ -21,10 +21,24 @@ ggplot(subset_data, aes(x = TobaccoUse, y = AverageBirthWeight, fill = PrePregna
     x = "Tobacco Use",
     y = "Average Birth Weight",
     fill = "Pre-Pregnancy Diabetes"
+  ) +
+  scale_fill_manual(values = c("No" = "lightblue", "Yes" = "Hotpink", "Unknown" = "lightgrey")) +
+  theme_light()
+
+
+
+subset_data <- subset_data %>%
+  mutate(
+    TobaccoUse = factor(TobaccoUse),
+    PrePregnancyDiabetes = factor(PrePregnancyDiabetes)
   )
 
-tobacco_colors <- c("No" = "Lightblue", "Yes" = "Orange", "Unknown" = "Hotpink")
-scale_fill_manual(values = tobacco_colors)
+cluster_data <-
+  select(TobaccoUse, PrePregnancyDiabetes, AverageBirthWeight)
+  mutate_if(is.factor, as.numeric)
+  scale() %>%
+  kmeans(centers = 3)
+
 
 
 

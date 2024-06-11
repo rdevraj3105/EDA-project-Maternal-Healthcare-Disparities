@@ -75,11 +75,13 @@ ggplot(clean_data, aes(x = clusters, y = AverageMotherAge, color = clusters)) +
 ```
 
 ## Question 2: 
-What is the affect of diabetes and tobacco use on birth weight? Is there a similarity?  
+<<<<<<< HEAD
+Is there an effect of tobacco use and pre-existing diabetes in the average birth weight of a newborn?
 
 ```{r}
 
 
+<<<<<<< HEAD
 ```
 
 ## Question 3: How does the number of births in each state with Tobacco Use, Pre Pregnancy Diabetes, and Pre Pregnancy Hypertension differ with the marginal difference of not using tobacco.
@@ -239,4 +241,7 @@ hypertension
 
 ```
 
+=======
+## Question 3: 
+>>>>>>> ba032a28603a90bf956817e083fc07d66e999972
 
