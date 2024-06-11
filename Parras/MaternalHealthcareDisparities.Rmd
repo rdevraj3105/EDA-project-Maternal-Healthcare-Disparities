@@ -26,12 +26,13 @@ Is higher maternal age associated with higher prenatal visits? To look at the re
 maternal %>%  
   ggplot(aes(x=AverageMotherAge, y=AverageNumberPrenatalVisits)) +
   geom_point(color="lightpink",size=3,alpha=0.5) +
-  theme_minimal() 
+  theme_light() 
 # adding a linear regression line 
 maternal %>% 
   ggplot(aes(x = AverageMotherAge, y = AverageNumberPrenatalVisits)) +
   geom_point(color = "lightpink", size = 3, alpha = 0.5) +
-  geom_smooth(method = "lm", linewidth = 2, color="hotpink")
+  geom_smooth(method = "lm", linewidth = 2, color="hotpink") +
+  theme_light
 ```
 
 The graphs show that there seems to be some positive relationship between the Average Mother Age and Average Prenatal Visits. More convincing proof would be to check the correlation coefficient. 
@@ -65,12 +66,12 @@ clean_data %>%
 ggplot(clean_data, aes(x = clusters, y = AverageNumberPrenatalVisits, color = clusters)) +
   geom_boxplot() +
   labs(x = "Cluster", y = "Average Prenantal Visits") +
-  theme_minimal()
+  theme_light()
 
 ggplot(clean_data, aes(x = clusters, y = AverageMotherAge, color = clusters)) +
   geom_boxplot() +
   labs(x = "Cluster", y = "Average Mother Age") +
-  theme_minimal()
+  theme_light()
 
 ```
 
