@@ -94,6 +94,9 @@ Is there an effect of tobacco use and pre-existing diabetes in the average birth
 ```{r}
 library(tidyverse)
 
+library(scales)
+
+
 maternal <- read_csv("https://raw.githubusercontent.com/36-SURE/36-SURE.github.io/main/data/maternal.csv")
 
 
@@ -104,19 +107,22 @@ subset_data <- maternal %>%
 subset_data <- subset_data %>%
   mutate(
     TobaccoUse = factor(TobaccoUse),
-    PrePregnancyDiabetes = factor(PrePregnancyDiabetes)
+    PrePregnancyDiabetes = factor(PrePregnancyDiabetes),
+    AverageBirthWeight = AverageBirthWeight/1000
   )
 
-ggplot(subset_data, aes(x = TobaccoUse, y = AverageBirthWeight, fill = PrePregnancyDiabetes)) +
+
+ggplot(subset_data, aes(x = TobaccoUse, y = AverageBirthWeight_kg, fill = PrePregnancyDiabetes)) +
   geom_boxplot() +
   labs(
     title = "Effect of Tobacco Use and Pre-Pregnancy Diabetes on Newborns' Birth Weight",
     x = "Tobacco Use",
-    y = "Average Birth Weight",
+    y = "Average Birth Weight (kg)",
     fill = "Pre-Pregnancy Diabetes"
   ) +
   scale_fill_manual(values = c("No" = "lightblue", "Yes" = "Hotpink", "Unknown" = "lightgrey")) +
-  theme_light()
+  theme_light() +
+  scale_y_continuous(labels = label_number(scale = 1e-3)) 
 ```
 
 Now with clustering
