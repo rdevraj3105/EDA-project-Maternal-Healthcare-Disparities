@@ -108,7 +108,7 @@ subset_data <- subset_data %>%
   mutate(
     TobaccoUse = factor(TobaccoUse),
     PrePregnancyDiabetes = factor(PrePregnancyDiabetes),
-    AverageBirthWeight = AverageBirthWeight/1000
+    AverageBirthWeight_kg = AverageBirthWeight
   )
 
 
