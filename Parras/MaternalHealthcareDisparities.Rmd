@@ -23,30 +23,63 @@ maternal <- read_csv("https://raw.githubusercontent.com/36-SURE/36-SURE.github.i
 Is higher maternal age associated with higher prenatal visits? To look at the relationship between these two variables, we can use a scatterplot. 
 
 ```{r}
-age_visits_relation <- maternal %>% select(AverageMotherAge, AverageNumberPrenatalVisits)
-
-age_visits_relation %>%  
+maternal %>%  
   ggplot(aes(x=AverageMotherAge, y=AverageNumberPrenatalVisits)) +
   geom_point(color="lightpink",size=3,alpha=0.5) +
   theme_minimal() 
 # adding a linear regression line 
-age_visits_relation %>% 
+maternal %>% 
   ggplot(aes(x = AverageMotherAge, y = AverageNumberPrenatalVisits)) +
   geom_point(color = "lightpink", size = 3, alpha = 0.5) +
   geom_smooth(method = "lm", linewidth = 2, color="hotpink")
 ```
-The graphs show that there seems to be some postive relationship between the Average Mother Age and Average Prenatal Visits. More convincing proof would be to check the correlation coefficient. 
+
+The graphs show that there seems to be some positive relationship between the Average Mother Age and Average Prenatal Visits. More convincing proof would be to check the correlation coefficient. 
 
 ```{r}
-cor(age_visits_relation$AverageMotherAge, 
-    age_visits_relation$AverageNumberPrenatalVisits, 
+cor(maternal$AverageMotherAge, 
+    maternal$AverageNumberPrenatalVisits, 
     use = "complete.obs")
+```
+Now looking at the same data but with clustering with kmeans to see any other significant findings. 
+
+```{r}
+clean_data <- maternal %>%  
+  select(AverageMotherAge, AverageNumberPrenatalVisits) %>%
+  na.omit()
+
+init_kmeans <- clean_data %>%  
+  kmeans(centers = 5, nstart = 1, algorithm = "Lloyd")
+
+clean_data <- clean_data %>%
+  mutate(clusters = as.factor(init_kmeans$cluster)) #yo
+
+clean_data %>%
+  ggplot(aes(x = AverageMotherAge, y = AverageNumberPrenatalVisits, color = clusters)) +
+  geom_point() + 
+  labs(title = "Clustering" ,
+       x = "Average Mother Age",
+       y = "Average Number of Prenatal Visits") +
+  coord_fixed()
+
+ggplot(clean_data, aes(x = clusters, y = AverageNumberPrenatalVisits, color = clusters)) +
+  geom_boxplot() +
+  labs(x = "Cluster", y = "Average Prenantal Visits") +
+  theme_minimal()
+
+ggplot(clean_data, aes(x = clusters, y = AverageMotherAge, color = clusters)) +
+  geom_boxplot() +
+  labs(x = "Cluster", y = "Average Mother Age") +
+  theme_minimal()
+
 ```
 
 ## Question 2: 
+<<<<<<< HEAD
 Is there an effect of tobacco use and pre-existing diabetes in the average birth weight of a newborn?
 
 ```{r}
-Code for question two:
-```
+
+
+## Question 3: 
 
