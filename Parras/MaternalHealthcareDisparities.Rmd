@@ -75,13 +75,41 @@ ggplot(clean_data, aes(x = clusters, y = AverageMotherAge, color = clusters)) +
 ```
 
 ## Question 2: 
-<<<<<<< HEAD
 Is there an effect of tobacco use and pre-existing diabetes in the average birth weight of a newborn?
+
+```{r}
+library(tidyverse)
+
+maternal <- read_csv("https://raw.githubusercontent.com/36-SURE/36-SURE.github.io/main/data/maternal.csv")
+
+
+subset_data <- maternal %>%
+  select(TobaccoUse, PrePregnancyDiabetes, AverageBirthWeight)
+
+
+subset_data <- subset_data %>%
+  mutate(
+    TobaccoUse = factor(TobaccoUse),
+    PrePregnancyDiabetes = factor(PrePregnancyDiabetes)
+  )
+
+ggplot(subset_data, aes(x = TobaccoUse, y = AverageBirthWeight, fill = PrePregnancyDiabetes)) +
+  geom_boxplot() +
+  labs(
+    title = "Effect of Tobacco Use and Pre-Pregnancy Diabetes on Newborns' Birth Weight",
+    x = "Tobacco Use",
+    y = "Average Birth Weight",
+    fill = "Pre-Pregnancy Diabetes"
+  ) +
+  scale_fill_manual(values = c("No" = "lightblue", "Yes" = "Hotpink", "Unknown" = "lightgrey")) +
+  theme_light()
+```
+
+Now with clustering 
 
 ```{r}
 
 
-<<<<<<< HEAD
 ```
 
 ## Question 3: How does the number of births in each state with Tobacco Use, Pre Pregnancy Diabetes, and Pre Pregnancy Hypertension differ with the marginal difference of not using tobacco.
@@ -159,7 +187,6 @@ tobacco_equals |>
  
 #first filter then add another filter 
 #rbind f
-
 
 
 
