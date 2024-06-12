@@ -93,7 +93,6 @@ Is there an effect of tobacco use and pre-existing diabetes in the average birth
 
 ```{r}
 library(tidyverse)
-
 library(scales)
 
 
@@ -125,10 +124,7 @@ ggplot(subset_data, aes(x = TobaccoUse, y = AverageBirthWeight_kg, fill = PrePre
   scale_y_continuous(labels = label_number(scale = 1e-3)) 
 ```
 
-Now with clustering
-
 ```{r}
-
 
 ```
 
