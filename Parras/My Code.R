@@ -68,5 +68,5 @@ ggplot(clean_data, aes(x = clusters, y = AverageMotherAge, color = clusters)) +
   labs(title= "Average Mother Age in the Clusters",x = "Cluster", y = "Average Mother Age") +
   theme_light()
 
-
+#please work 
 
