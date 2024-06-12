@@ -28,14 +28,8 @@ cor(maternal$AverageMotherAge,
 # correlation coefficient suggests a weak yet positive relationship 
 
        
-
 # The clusters are visually distinguishable, indicating that AverageMotherAge
 # and AverageNumberPrenatalVisits play significant roles in cluster formation.
-
-# Cluster 1: Likely represents younger mothers who might have more prenatal visits on average.
-# Cluster 2: Possibly an older group of mothers with fewer prenatal visits.
-# Cluster 3: An intermediate group or one with specific 
-# characteristics not entirely clear from age and visit numbers alone.
 
 # new code 
 clean_data <- maternal %>%  
@@ -57,6 +51,11 @@ clean_data %>%
   coord_fixed()
 
 
+# analysis 
+cluster_centers <- as.data.frame(init_kmeans$centers)
+cluster_centers
+
+
 # box plots for clusters 
 ggplot(clean_data, aes(x = clusters, y = AverageNumberPrenatalVisits, color = clusters)) +
   geom_boxplot() +
@@ -68,5 +67,6 @@ ggplot(clean_data, aes(x = clusters, y = AverageMotherAge, color = clusters)) +
   labs(title= "Average Mother Age in the Clusters",x = "Cluster", y = "Average Mother Age") +
   theme_light()
 
-#please work 
+
+
 
