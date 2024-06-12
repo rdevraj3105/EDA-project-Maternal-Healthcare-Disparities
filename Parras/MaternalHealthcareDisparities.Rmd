@@ -99,15 +99,15 @@ library(scales)
 maternal <- read_csv("https://raw.githubusercontent.com/36-SURE/36-SURE.github.io/main/data/maternal.csv")
 
 
-subset_data <- maternal %>%
+subset_data <- maternal |>
   select(TobaccoUse, PrePregnancyDiabetes, AverageBirthWeight)
 
 
-subset_data <- subset_data %>%
+subset_data <- subset_data |>
   mutate(
     TobaccoUse = factor(TobaccoUse),
     PrePregnancyDiabetes = factor(PrePregnancyDiabetes),
-    AverageBirthWeight = AverageBirthWeight/1000
+    AverageBirthWeight_kg = AverageBirthWeight/1000
   )
 
 
@@ -120,8 +120,7 @@ ggplot(subset_data, aes(x = TobaccoUse, y = AverageBirthWeight_kg, fill = PrePre
     fill = "Pre-Pregnancy Diabetes"
   ) +
   scale_fill_manual(values = c("No" = "lightblue", "Yes" = "Hotpink", "Unknown" = "lightgrey")) +
-  theme_light() +
-  scale_y_continuous(labels = label_number(scale = 1e-3)) 
+  theme_light()
 ```
 
 ```{r}
