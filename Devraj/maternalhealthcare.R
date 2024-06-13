@@ -4,6 +4,7 @@ install.packages("gridExtra")
 library(gridExtra)
 maternal <- read_csv("https://raw.githubusercontent.com/36-SURE/36-SURE.github.io/main/data/maternal.csv")
 
+
 View(maternal)
 
 #How does the number of births in each state with Tobacco Use, Pre Pregnancy Diabetes, and Pre Pregnancy Hypertension differ with the marginal difference of not using tobacco.
@@ -61,7 +62,7 @@ tobacco_equals <- tobacco_equals |>
     panel.border = element_blank(),
     axis.ticks = element_blank(),
     legend.position = "bottom",
-    plot.title = element_text(size = 13, hjust = 0, vjust = 0.5, face = "bold", 
+    plot.title = element_text(size = 13, hjust = 0.5, vjust = 0.5, face = "bold", 
                               margin = margin(b = 0.2, unit = "cm"))
   ) +
   labs(
@@ -103,7 +104,7 @@ diabetes <- diabetes_equals |>
     panel.border = element_blank(),
     axis.ticks = element_blank(),
     legend.position = "bottom",
-    plot.title = element_text(size = 13, hjust = 0, vjust = 0.5, face = "bold", 
+    plot.title = element_text(size = 13, hjust = 0.5, vjust = 0.5, face = "bold", 
                              margin = margin(b = 0.2, unit = "cm"))
   ) +
   labs(
@@ -142,14 +143,14 @@ hypertension <- hypertension_equals |>
     panel.border = element_blank(),
     axis.ticks = element_blank(),
     legend.position = "bottom",
-    plot.title = element_text(size = 13, hjust = 0, vjust = 0.5, face = "bold", 
+    plot.title = element_text(size = 13, hjust = 0.5, vjust = 0.5, face = "bold", 
                               margin = margin(b = 0.2, unit = "cm"))
   ) +
   labs(
     title = "Number of Births in each State: With or Without Hypertension, Considering Tobacco Use and Pre-Pregnancy Diabetes",
     x = "State",
     y = "Births",
-    fill = "Diabetes"
+    fill = "Hypertension"
   )
 hypertension 
 
@@ -159,17 +160,36 @@ View(maternal)
 maternal |> 
   count(TobaccoUse)
 
+library(cowplot)
+plot_grid(tobacco_equals,hypertension,diabetes) 
+
+# install.packages("gtsummary")
+# library(gtsummary)
+# maternal |> 
+#   select(TobaccoUse,State,Births) |> 
+#   #filter(State%in%c("California","Texas","New York","Missouri")) |> 
+#   group_by(TobaccoUse, State) |> 
+#   summarize(Births=sum(Births, na.rm=TRUE)) |> 
+#   ungroup() |> mutate(TobaccoUse = factor(TobaccoUse), State =factor(State)) |> 
+#   tbl_summary()
+
+View(maternal)
+  
 
 
-install.packages("gtsummary")
-library(gtsummary)
-maternal |> 
-  select(TobaccoUse,State,Births) |> 
-  filter(State%in%c("California","Texas","New York","Missouri")) |> 
-  group_by(TobaccoUse, State) |> 
-  summarize(Births=sum(Births, na.rm=TRUE)) |> 
-  ungroup() |> mutate(TobaccoUse = factor(TobaccoUse), State =factor(State)) |> 
-  tbl_summary(include = c('Births'), by = State)
-  
-  
+
+library(sf)
+library(RColorBrewer)
+
+# Download the Hexagon boundaries at geojson format here: https://team.carto.com/u/andrew/tables/andrew.us_states_hexgrid/public/map.
+
+# Load this file. (Note: I stored in a folder called DATA)
+my_sf <- read_sf("DATA/us_states_hexgrid.geojson.json")
+
+# Bit of reformatting
+my_sf <- my_sf %>%
+  mutate(google_name = gsub(" \\(United States\\)", "", google_name))
+
+# Show it
+plot(st_geometry(my_sf))
   
