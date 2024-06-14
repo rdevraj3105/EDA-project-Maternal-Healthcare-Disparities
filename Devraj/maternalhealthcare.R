@@ -8,7 +8,7 @@ maternal <- read_csv("https://raw.githubusercontent.com/36-SURE/36-SURE.github.i
 View(maternal)
 
 #How does the number of births in each state with Tobacco Use, Pre Pregnancy Diabetes, and Pre Pregnancy Hypertension differ with the marginal difference of not using tobacco.
-
+theme_set(theme_bw())
 
 library(ggthemes)
 library(gganimate)
@@ -40,12 +40,10 @@ library(gganimate)
 tobacco_no = maternal |> 
   filter(TobaccoUse %in% c("No"), PriorBirthsNowDeceased == '0', 
          PrePregnancyDiabetes %in% c("Yes"), PrePregnancyHypertension %in% c("Yes"))
-
 tobacco_yes = maternal |> 
   filter(TobaccoUse %in% c("Yes"), 
          PriorBirthsNowDeceased == '0', 
          PrePregnancyDiabetes %in% c("Yes"), PrePregnancyHypertension %in% c("Yes"))
-
 tobacco_equals = rbind(tobacco_no, tobacco_yes)
 tobacco_equals <- tobacco_equals |> 
   select(c("State","Births","TobaccoUse")) |> 
@@ -63,10 +61,15 @@ tobacco_equals <- tobacco_equals |>
     axis.ticks = element_blank(),
     legend.position = "bottom",
     plot.title = element_text(size = 13, hjust = 0.5, vjust = 0.5, face = "bold", 
-                              margin = margin(b = 0.2, unit = "cm"))
+                              margin = margin(b = 0.2, unit = "cm")),
+    axis.text.x = element_text(face="bold", color = "black"),
+    axis.text.y = element_text(face="bold", color="black"),
+    axis.title.y = element_text(face = "bold", color = "darkred"),
+    axis.title.x = element_text(face = "bold", color = "darkred",vjust = -0.85)
   ) +
+  scale_fill_manual(values = c("No"="brown","Yes"="black"))+
   labs(
-    title = "Number of Births in each State: Tobacco Use vs. Non-Use, Considering Diabetes and Hypertension",
+    #title = "Number of Births in each State: Tobacco Use vs. Non-Use, Considering Diabetes and Hypertension",
     x = "State",
     y = "Births",
     fill = "Tobacco Use"
@@ -96,7 +99,7 @@ diabetes <- diabetes_equals |>
   ggplot(aes(group=State)) +
   geom_segment( aes(x=State, xend=State, y=0, yend=Births)) +
   geom_point(aes(x=State,y=Births, fill = PrePregnancyDiabetes),size=5, 
-             alpha=0.67, shape=21)+
+             alpha=0.68, shape=21)+
   scale_y_continuous(breaks=seq(0,600,50))+
   coord_flip()+
   theme(
@@ -105,15 +108,19 @@ diabetes <- diabetes_equals |>
     axis.ticks = element_blank(),
     legend.position = "bottom",
     plot.title = element_text(size = 13, hjust = 0.5, vjust = 0.5, face = "bold", 
-                             margin = margin(b = 0.2, unit = "cm"))
+                             margin = margin(b = 0.2, unit = "cm")),
+    axis.text.x = element_text(face="bold", color = "black"),
+    axis.text.y = element_text(face="bold", color="black"),
+    axis.title.y = element_text(face = "bold", color = "darkred"),
+    axis.title.x = element_text(face = "bold", color = "darkred",vjust = -0.85)
   ) +
+  scale_fill_manual(values = c("No"="brown","Yes"="black"))+
   labs(
-    title = "Number of Births in each State: With or Without Diabetes, Considering Tobacco Use and Hypertension",
+    #title = "Number of Births in each State: With or Without Diabetes, Considering Tobacco Use and Hypertension",
     x = "State",
     y = "Births",
     fill = "Diabetes"
   )
-
 diabetes
 
 
@@ -135,7 +142,7 @@ hypertension <- hypertension_equals |>
   ggplot(aes(group=State)) +
   geom_segment( aes(x=State, xend=State, y=0, yend=Births)) +
   geom_point(aes(x=State,y=Births, fill = PrePregnancyHypertension),size=5, 
-             alpha=0.67, shape=21)+
+             alpha=0.68, shape=21)+
   scale_y_continuous(breaks=seq(0,600,50))+
   coord_flip()+
   theme(
@@ -144,36 +151,42 @@ hypertension <- hypertension_equals |>
     axis.ticks = element_blank(),
     legend.position = "bottom",
     plot.title = element_text(size = 13, hjust = 0.5, vjust = 0.5, face = "bold", 
-                              margin = margin(b = 0.2, unit = "cm"))
+                              margin = margin(b = 0.2, unit = "cm")),
+    axis.text.x = element_text(face="bold", color = "black"),
+    axis.text.y = element_text(face="bold", color="black"),
+    axis.title.y = element_text(face = "bold", color = "darkred"),
+    axis.title.x = element_text(face = "bold", color = "darkred",vjust = -0.85)
   ) +
+  scale_fill_manual(values = c("No"="brown","Yes"="black"))+
   labs(
-    title = "Number of Births in each State: With or Without Hypertension, Considering Tobacco Use and Pre-Pregnancy Diabetes",
+    #title = "Number of Births in each State: With or Without Hypertension, Considering Tobacco Use and Pre-Pregnancy Diabetes",
     x = "State",
     y = "Births",
     fill = "Hypertension"
   )
-hypertension 
+hypertension
 
 
-
-View(maternal)
-maternal |> 
-  count(TobaccoUse)
-
-library(cowplot)
-plot_grid(tobacco_equals,hypertension,diabetes) 
-
+# 
+# View(maternal)
+# maternal |> 
+#   count(TobaccoUse)
+# 
+# library(cowplot)
+# plot_grid(tobacco_equals,hypertension,diabetes) 
+# 
 # install.packages("gtsummary")
 # library(gtsummary)
-# maternal |> 
-#   select(TobaccoUse,State,Births) |> 
-#   #filter(State%in%c("California","Texas","New York","Missouri")) |> 
-#   group_by(TobaccoUse, State) |> 
-#   summarize(Births=sum(Births, na.rm=TRUE)) |> 
-#   ungroup() |> mutate(TobaccoUse = factor(TobaccoUse), State =factor(State)) |> 
-#   tbl_summary()
-
-View(maternal)
+# maternal |>
+#   select(TobaccoUse,State,Births) |>
+#   #filter(State%in%c("California","Texas","New York","Missouri")) |>
+#   group_by(TobaccoUse, State) |>
+#   summarize(Births=sum(Births, na.rm=TRUE)) |>
+#   ungroup() |> mutate(TobaccoUse = factor(TobaccoUse), State =factor(State)) |>
+#   tbl_summary(by = State)
+# 
+# View(maternal)
+# View(Statematernal)
   
 
 
@@ -181,15 +194,25 @@ View(maternal)
 library(sf)
 library(RColorBrewer)
 
-# Download the Hexagon boundaries at geojson format here: https://team.carto.com/u/andrew/tables/andrew.us_states_hexgrid/public/map.
+install.packages("usmap")
+library(usmap)
+plot_usmap(regions = "states") + 
+  labs(title = "U.S. States",
+       subtitle = "This is a blank map of the United States.") + 
+  theme(panel.background=element_blank())
 
-# Load this file. (Note: I stored in a folder called DATA)
-my_sf <- read_sf("DATA/us_states_hexgrid.geojson.json")
+maternal |> 
+  filter(State %in% c("California", "New York", "Florida")) |>
+  ggplot(aes(x=AverageBirthWeight,y=Births, fill = State))+
+  geom_area()
 
-# Bit of reformatting
-my_sf <- my_sf %>%
-  mutate(google_name = gsub(" \\(United States\\)", "", google_name))
 
-# Show it
-plot(st_geometry(my_sf))
+
+
+
+
+
+
+
+
   
