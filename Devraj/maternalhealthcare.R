@@ -207,9 +207,18 @@ maternal |>
   geom_area()
 
 
-
-
-
+maternal |> 
+  filter(State %in% c("California", "New York", "Florida","Alaska","Illinois")) |> 
+  filter(TobaccoUse == "No", 
+         PriorBirthsNowDeceased == '0', 
+         PrePregnancyDiabetes == "No", 
+         PrePregnancyHypertension == "No") |> 
+  ggplot(aes(x = State, y = Births)) +
+  scale_y_continuous(breaks=seq(0,600000,50000))+
+  geom_bar(stat = "identity") +
+  labs(title = "Number of Births in select states with none of the conditions",
+       x = "State",
+       y = "Number of Births")
 
 
 
